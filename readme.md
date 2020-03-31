@@ -1,1 +1,7 @@
-## implementations of algorithms in C++
+## Implementations of algorithms related the advanced data structures made in C++
+
+### How
+
+* BST
+
+* AVL
