@@ -1,8 +1,8 @@
 #ifndef ITEM_H
 #define ITEM_H
-#include <string>
+//#include <string>
 
-typedef std::int Tkey;
-typedef std::double Tvalue;
+typedef int Tkey; 
+typedef float Tvalue; 
 
 #endif

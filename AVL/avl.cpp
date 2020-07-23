@@ -1,10 +1,7 @@
-#include <iostream>
-#include <queue>
-#include "avl.h"
+#include <bits/stdc++.h>
 #include "item.h"
-using std::cout;
-using std::endl;
-using std::max;
+#include "avl.h"
+using namespace std;
 
 struct Node {
     Tkey key;
@@ -14,58 +11,58 @@ struct Node {
     Node *right;
 };
 
-node *rightRotation(Node *node) {
+Node *avl_rightRotation(Node *node) {
 	Node *u = node->left;
 	node->left = u->right;
 	u->right = node;
 
-	node->height = 1 + max(height(node->left), height(node->right));
-	u->height = 1 + max(height(u->left), height(u->right));
+	node->height = 1 + max(avl_height(node->left), avl_height(node->right));
+	u->height = 1 + max(avl_height(u->left), avl_height(u->right));
 
 	return u;
 }
 
-node *leftRotation(Node *node) {
+Node *avl_leftRotation(Node *node) {
 	Node *u = node->right;
 	node->right = u->left;
 	u->left = node;
 
-	node->height = 1 + max(height(node->left), height(node->right));
-	u->height = 1 + max(height(u->left), height(u->right));
+	node->height = 1 + max(avl_height(node->left), avl_height(node->right));
+	u->height = 1 + max(avl_height(u->left), avl_height(u->right));
 
 	return u;
 }
 
-Node *fixup_node(Node *node, Tkey key) {
+Node *avl_fixup_node(Node *node, Tkey key) {
 	int bal = avl_balance(node);
 
-	if(bal < -1 and key < node->left->key) return rightRotation(node);
+	if(bal < -1 and key < node->left->key) return avl_rightRotation(node);
 	else if(bal < -1 and key > node->left->key) {
-		node->left = leftRotation(node->left);
-		return rightRotation(node);
-	}else if(bal > 1 and key > node->right->key) return leftRotation(node);
+		node->left = avl_leftRotation(node->left);
+		return avl_rightRotation(node);
+	}else if(bal > 1 and key > node->right->key) return avl_leftRotation(node);
 	else if(bal > 1 and key < node->right->key) {
-		node->right = rightRotation(node->right);
-		return leftRotation(node);
+		node->right = avl_rightRotation(node->right);
+		return avl_leftRotation(node);
 	}
 	return node;
 }
 
-Node *fixup_node_deletion(Node *node) {
+Node *avl_fixup_node_deletion(Node *node) {
 	int bal = avl_balance(node);
 	if(bal >= -1 or bal <= 1) return node;
 }
 
-Node *delete_pred(Node *root , Node *node) {
+Node *avl_delete_pred(Node *root , Node *node) {
 	if(node->right != nullptr) {
-		node->right = delete_predecessor(root, node->right);
+		node->right = avl_delete_pred(root, node->right);
 	}else {
 		root->key = node->key;
 		Node *aux = node->left;
 		delete node;
 		return aux;
 	}
-	node = fixup_node_deletion(node);
+	node = avl_fixup_node_deletion(node);
 	return node;
 }
 
@@ -87,9 +84,9 @@ Node *avl_insert(Node *node, Tkey key, Tvalue value) {
 		return node;
 	}
 
-	node->height = 1 + max(height(node->left), height(node-->right));
+	node->height = 1 + max(avl_height(node->left), avl_height(node->right));
 
-	node = fixup_node(node, key);
+	node = avl_fixup_node(node, key);
 
 	return node;
 }
@@ -110,7 +107,7 @@ Node *avl_delete(Node *node, Tkey key) {
 	}else {
 		node->left = avl_delete_pred(node, node->left);
 	}
-	node = fixup_node_deletion(node);
+	node = avl_fixup_node_deletion(node);
 	return node;
 }
 
@@ -151,15 +148,15 @@ void avl_inorder(Node *node) {
 }
 
 void avl_level_traversal(Node *node) {
-	if(node == nullptr) return nullptr;
+	if(node == nullptr) return;
 	queue<Node*> QNode;
-	Q.push(node);
-	while(!Q.empty()) {
-		Node *current = Q.front();
+	QNode.push(node);
+	while(!QNode.empty()) {
+		Node *current = QNode.front();
 		cout << "(" << current->key << ", " << current->value << ")" << endl;
-		if(current->left != nullptr) Q.push(current->left);
-		if(current->right != nullptr) Q.push(current->right);
-		Q.pop();
+		if(current->left != nullptr) QNode.push(current->left);
+		if(current->right != nullptr) QNode.push(current->right);
+		QNode.pop();
 	}
 }
 
