@@ -147,6 +147,15 @@ void avl_inorder(Node *node) {
 	}
 }
 
+void avl_postorder(Node *node) {
+	if(node != nullptr) {
+		avl_preorder(node->right);
+		avl_preorder(node->left);
+		cout << "(" << node->key << ", " << node->value << ")" << endl;
+	}
+}
+
+
 void avl_level_traversal(Node *node) {
 	if(node == nullptr) return;
 	queue<Node*> QNode;
@@ -173,6 +182,26 @@ int avl_balance(Node *node) {
 int avl_size(Node *node) {
 	if(node == nullptr) return 0;
 	else 1 + avl_size(node->left) + avl_size(node->right);
+}
+
+int avl_sheets_number(Node *node) {
+	if(node == nullptr) return 0;
+	if(node->left == nullptr and node->right == nullptr) return 1;
+	return avl_sheets_number(node->left) + avl_sheets_number(node->right);
+}
+
+int avl_max_value(Node *node) {
+	while(node->right != nullptr) {
+        node = node->right;
+    } 
+    return node->key;
+}
+
+int avl_min_value(Node *node) {
+	while(node->left != nullptr) {
+        node = node->left;
+    } 
+    return node->key;
 }
 
 bool avl_empty(Node *node) {

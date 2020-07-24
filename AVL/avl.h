@@ -18,10 +18,14 @@ Tvalue avl_getValue(Node *node);
 Node *avl_search(Node *node, Tkey key);
 void avl_preorder(Node *node);
 void avl_inorder(Node *node);
+void avl_postorder(Node *node);
 void avl_level_traversal(Node *node);
 int avl_height(Node *node);
 int avl_balance(Node *node);
+int avl_sheets_number(Node *node);
 int avl_size(Node *node);
+int avl_min_value(Node *node);
+int avl_max_value(Node *node);
 bool avl_empty(Node *node);
 Node *avl_clear(Node *node);
 
