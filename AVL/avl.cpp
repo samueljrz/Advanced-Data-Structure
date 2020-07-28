@@ -11,6 +11,7 @@ struct Node {
     Node *right;
 };
 
+// Right Rotation in the tree, for reorganized it.
 Node *avl_rightRotation(Node *node) {
 	Node *u = node->left;
 	node->left = u->right;
@@ -22,6 +23,7 @@ Node *avl_rightRotation(Node *node) {
 	return u;
 }
 
+// Left Rotation in the tree, for reorganized it.
 Node *avl_leftRotation(Node *node) {
 	Node *u = node->right;
 	node->right = u->left;
@@ -33,6 +35,7 @@ Node *avl_leftRotation(Node *node) {
 	return u;
 }
 
+// Fixup the tree when your balance its wrong
 Node *avl_fixup_node(Node *node, Tkey key) {
 	int bal = avl_balance(node);
 
@@ -48,11 +51,13 @@ Node *avl_fixup_node(Node *node, Tkey key) {
 	return node;
 }
 
+// INCOMPLETE
 Node *avl_fixup_node_deletion(Node *node) {
 	int bal = avl_balance(node);
 	if(bal >= -1 or bal <= 1) return node;
 }
 
+// Delete pred of the specific node, help the function delete works
 Node *avl_delete_pred(Node *root , Node *node) {
 	if(node->right != nullptr) {
 		node->right = avl_delete_pred(root, node->right);
@@ -66,6 +71,7 @@ Node *avl_delete_pred(Node *root , Node *node) {
 	return node;
 }
 
+// Insert a node in the tree
 Node *avl_insert(Node *node, Tkey key, Tvalue value) {
 	if(node == nullptr) {
 		Node *node = new Node();
@@ -91,6 +97,7 @@ Node *avl_insert(Node *node, Tkey key, Tvalue value) {
 	return node;
 }
 
+// Delete a node in the tree, INCOMPLETE!
 Node *avl_delete(Node *node, Tkey key) {
 	if(node == nullptr) return nullptr;
 	if(key < node->key) {
@@ -111,14 +118,17 @@ Node *avl_delete(Node *node, Tkey key) {
 	return node;
 }
 
+// Get key of the node
 Tkey avl_getKey(Node *node) {
     return node->key;
 }
 
+// Get value of the node
 Tvalue avl_getValue(Node *node) {
     return node->value;
 }
 
+// Search a node in the tree
 Node *avl_search(Node *node, Tkey key) {
 	if(node == nullptr) {
 		return nullptr;
@@ -131,6 +141,7 @@ Node *avl_search(Node *node, Tkey key) {
 		return node;
 }
 
+// Show in pre-order ROOT-L-R
 void avl_preorder(Node *node) {
 	if(node != nullptr) {
 		cout << "(" << node->key << ", " << node->value << ")" << endl;
@@ -139,6 +150,7 @@ void avl_preorder(Node *node) {
 	}
 }
 
+// Show in in-order L-ROOT-R
 void avl_inorder(Node *node) {
 	if(node != nullptr) {
 		avl_inorder(node->left);
@@ -147,6 +159,7 @@ void avl_inorder(Node *node) {
 	}
 }
 
+// Show in post-order R-L-ROOT
 void avl_postorder(Node *node) {
 	if(node != nullptr) {
 		avl_preorder(node->right);
@@ -155,7 +168,7 @@ void avl_postorder(Node *node) {
 	}
 }
 
-
+// Show the tree from up to down, and left to right
 void avl_level_traversal(Node *node) {
 	if(node == nullptr) return;
 	queue<Node*> QNode;
@@ -169,50 +182,58 @@ void avl_level_traversal(Node *node) {
 	}
 }
 
+// Show the height of the tree
 int avl_height(Node *node) {
 	if(node == nullptr) return 0;
 	else return node->height;
 }
 
+// Calculate the balance of a node 
 int avl_balance(Node *node) {
 	if(node == nullptr) return 0;
 	return avl_height(node->right) - avl_height(node->left);
 }
 
+// Count how much nodes have in the tree
 int avl_size(Node *node) {
 	if(node == nullptr) return 0;
 	else 1 + avl_size(node->left) + avl_size(node->right);
 }
 
+// Count all the sheet of the tree
 int avl_sheets_number(Node *node) {
 	if(node == nullptr) return 0;
 	if(node->left == nullptr and node->right == nullptr) return 1;
 	return avl_sheets_number(node->left) + avl_sheets_number(node->right);
 }
 
-int avl_max_value(Node *node) {
+// Show the maximum value of the tree
+Tkey avl_max_value(Node *node) {
 	while(node->right != nullptr) {
         node = node->right;
     } 
     return node->key;
 }
 
-int avl_min_value(Node *node) {
+// Show the minimum value of the tree
+Tkey avl_min_value(Node *node) {
 	while(node->left != nullptr) {
         node = node->left;
     } 
     return node->key;
 }
 
+// Return a boolean, if tree was be empty return true another case return false
 bool avl_empty(Node *node) {
 	return (node == nullptr);
 }
 
+// Delete all the nodes of the tree
 Node *avl_clear(Node *node) {
 	if(node != nullptr) {
 		node ->left = avl_clear(node ->left);
 		node ->right = avl_clear(node ->right);
-		cout << "Removendo chave " << node ->key << endl;
+		cout << "Erasing the key: " << node ->key << endl;
 		delete node;
 	}
 	return nullptr;

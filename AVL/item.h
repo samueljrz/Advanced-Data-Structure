@@ -3,7 +3,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef int Tkey; 
+typedef string Tkey; 
 typedef string Tvalue; 
 
 #endif
