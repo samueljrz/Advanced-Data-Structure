@@ -51,10 +51,24 @@ Node *avl_fixup_node(Node *node, Tkey key) {
 	return node;
 }
 
-// INCOMPLETE
+// Fix up the balances and heights of the trees below a erase hit tree
 Node *avl_fixup_node_deletion(Node *node) {
+	node->height = 1 + max(avl_height(node->right), avl_height(node->left));
+	
 	int bal = avl_balance(node);
-	if(bal >= -1 or bal <= 1) return node;
+	
+	if(bal > 1 && avl_balance(node->right) >= 0) {
+		node = avl_leftRotation(node);
+	}else if(bal > 1 && avl_balance(node->right) < 0) {
+		node->right = avl_rightRotation(node->right);
+		node = avl_leftRotation(node);
+	}else if(bal < -1 && avl_balance(node->left) <= 0) {
+		node = avl_rightRotation(node);
+	}else if(bal < -1 && avl_balance(node->left) > 0) {
+		node->left = avl_leftRotation(node->left);
+		node = avl_rightRotation(node);
+	}
+	return node;
 }
 
 // Delete pred of the specific node, help the function delete works

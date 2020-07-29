@@ -30,7 +30,8 @@ int main() {
 	    cout << "5. Post-order route" << endl;
 	    cout << "6. Search a node" << endl;
 	    cout << "7. Tree height" << endl;
-	    cout << "8. Exit" << endl;
+	    cout << "8. Delete a node by key" << endl;
+	    cout << "9. Exit" << endl;
 	    cout << "Get in with your choose: " << endl;
 
 	    cin >> opc;
@@ -41,7 +42,7 @@ int main() {
 	    		cout << "Insert the key" << endl;
 	    		cin >> key;
 	    		while(avl_search(r, key) != nullptr) {
-	    			cout << "Key already exists, please, insert another key" << endl;
+	    			cout << "Key already exists, please, insert another key: " << endl;
 	    			cin >> key;
 	    		}
 	    		cout << "Insert the value" << endl;
@@ -111,6 +112,21 @@ int main() {
 	    		break;
 
 	    	case 8: 
+	    		system("clear");
+	    		cout << "Insert the key: " << endl;
+	    		cin >> key;
+	    		while(avl_search(r, key) == nullptr) {
+	    			cout << "Key doesn't exists, please, insert another key: " << endl;
+	    			cin >> key;
+	    		}
+	    		r = avl_delete(r, key);
+	    		cout << "Deleted: " << key << endl;
+	    		cout << "Wait 3 seconds for come back to the menu!!!" << endl;
+	    		usleep(3000000);
+	    		system("clear");
+	    		break;
+
+	    	case 9: 
 	    		system("clear");
 	    		return 0;
 
