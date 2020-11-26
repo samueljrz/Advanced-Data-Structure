@@ -1,0 +1,73 @@
+
+/*
+void Btree::remove(int k) {
+    Bnode *aux = root;
+    Bnode *ant = nullptr;
+    int posant = 0;
+    while(1) {
+        //verifica se existe a chave
+        if(search(k) and root != nullptr) {
+            int pos;
+            //calcula a posicao
+            pos = searchPos(k, aux);
+            //verifica se ele ta nesse no
+            if(here(k, aux)) {
+                //verifica se ele é folha
+                if(aux->leaf) {
+                    for (int i=pos+1; i<aux->n; i++){
+                        aux->key[i-1] = aux->key[i];
+                        aux->c[i-1] = aux->c[i];
+                    }
+                    aux->n--;
+                    if(n < (aux->d)-1) {
+
+                    }
+                    return;
+                }else {
+                    if(aux->n >= aux->d) {
+                        int succ = successor(k);
+                        remove(succ);
+                        aux->key[pos] = succ;
+                        return;
+                    }else {
+                        if(ant->c[posant-1]->n >= aux->d) {
+                            int vaux = ant->key[posant];
+                            int naux = ant->c[posant-1]->n;
+                            Bnode *paux = ant->c[posant-1]->c[naux];
+                            ant->key[posant] = ant->c[posant-1]->key[naux];
+                            ant->c[posant-1]->n--;
+                            for(int i=0; i<aux->n; i++) {
+                                aux->key[i+1] = aux->key[i];
+                                aux->c[i+1] = aux->c[i];
+                            }
+                            aux->key[0] = vaux; 
+                            aux->c[0] = paux;
+                            aux->n++;
+                            return;
+                        }else if(ant->c[posant+1]->n >= aux->d) {
+                            int vaux = ant->key[posant];
+                            int naux = ant->c[posant+1]->n;
+                            Bnode *paux = ant->c[posant+1]->c[naux];
+                            ant->key[posant] = ant->c[posant+1]->key[naux];
+                            ant->c[posant+1]->n--;
+                            aux->key[aux->n] = vaux; 
+                            aux->c[aux->n] = paux;
+                            aux->n++;
+                            return;
+                        }else {
+                            
+
+                        }
+                    }                
+                }
+            }else {
+                //no anterior
+                ant = aux;
+                //posicao anterior
+                posant = pos;
+                aux = aux->c[pos];
+            }
+        }
+    }
+}
+*/

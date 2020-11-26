@@ -7,3 +7,7 @@
 * AVL
 
 * REDBLACK
+
+* BTREE - INCOMPLETE
+
+* HASHING
